@@ -3,17 +3,30 @@ from django.db import models
 # Create your models here.
 
 
-class usuario(models.Model):
+class Autor(models.Model):
+    class Meta:
+        verbose_name_plural = "Autores"
+
     nombre = models.CharField(max_length=30)
     apodo = models.CharField(max_length=30)
-    mail = models.EmailField
+    profecion = models.CharField(max_length=30, blank=True, null=True)
+    edad = models.BigIntegerField(blank=True, null=True)
+    mail = models.EmailField(blank=True, null=True)
+
+    def __str__(self):
+        return self.apodo
 
 
-class articulo(models.Model):
+class Articulo(models.Model):
+
     titulo = models.CharField(max_length=30)
     articulo = models.CharField(max_length=1000)
-    fecha_de_publicacion = models.DateField(none=True)
+    fecha_de_publicacion = models.DateField(null=True)
 
 
-class seccion(models.Model):
+class Seccion(models.Model):
+    class Meta:
+        verbose_name_plural = "Secciones"
+
     nombre = models.CharField(max_length=30)
+    fecha_de_creacion = models.DateField(null=True)
