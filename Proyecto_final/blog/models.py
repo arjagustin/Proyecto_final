@@ -10,7 +10,7 @@ class Autor(models.Model):
     nombre = models.CharField(max_length=30)
     apodo = models.CharField(max_length=30)
     profecion = models.CharField(max_length=30, blank=True, null=True)
-    edad = models.BigIntegerField(blank=True, null=True)
+    edad = models.IntegerField(blank=True, null=True)
     mail = models.EmailField(blank=True, null=True)
 
     def __str__(self):
