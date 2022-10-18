@@ -1,8 +1,13 @@
-{% extends "blog/main.html" %}
+{% extends "main.html" %}
 
 
 {% block inserte_aqui_su_contenido %}
 
-{{ formulario.as_table}}
+<form action="" method="POST">{% csrf_token %}
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="Guardar modelo">
+</form>
 
 {% endblock %}
