@@ -84,3 +84,36 @@ def formulario_autores(request):
 
         contexto = {"formulario": mi_formulario}
         return render(request, "formulario-autor.html", context=contexto)
+
+
+def buscar_articulo(request):
+    if request.method == "GET":
+        return render(request, "formulario-busqueda-articulo.html")
+
+    if request.method == "POST":
+        titulo_a_buscar = request.POST["titulo"]
+        resultados_de_busqueda = Articulo.objects.filter(titulo=titulo_a_buscar)
+        contexto = {"resultados": resultados_de_busqueda}
+        return render(request, "resultado-busqueda-articulo.html", context=contexto)
+
+
+def buscar_seccion(request):
+    if request.method == "GET":
+        return render(request, "formulario-busqueda-seccion.html")
+
+    if request.method == "POST":
+        nombre_a_buscar = request.POST["nombre"]
+        resultados_de_busqueda = Seccion.objects.filter(nombre=nombre_a_buscar)
+        contexto = {"resultados": resultados_de_busqueda}
+        return render(request, "resultado-busqueda-seccion.html", context=contexto)
+
+
+def buscar_autor(request):
+    if request.method == "GET":
+        return render(request, "formulario-busqueda-autor.html")
+
+    if request.method == "POST":
+        nombre_a_buscar = request.POST["nombre"]
+        resultados_de_busqueda = Autor.objects.filter(nombre=nombre_a_buscar)
+        contexto = {"resultados": resultados_de_busqueda}
+        return render(request, "resultado-busqueda-autor.html", context=contexto)
