@@ -13,10 +13,10 @@ from blog.views import (
 
 urlpatterns = [
     path("inicio/", inicio),
-    path("formulario-articulos/", formulario_articulos),
-    path("formulario-secciones/", formulario_secciones),
-    path("formulario-autores/", formulario_autores),
-    path("buscar-articulo/", buscar_articulo),
-    path("buscar-seccion/", buscar_seccion),
-    path("buscar-autor/", buscar_autor),
+    path("inicio/formulario-articulo.html/", formulario_articulos),
+    path("inicio/formulario-seccion.html/", formulario_secciones),
+    path("inicio/formulario-autor.html/", formulario_autores),
+    path("inicio/formulario-busqueda-articulo.html/", buscar_articulo),
+    path("inicio/formulario-busqueda-seccion.html/", buscar_seccion),
+    path("inicio/formulario-busqueda-autor.html/", buscar_autor),
 ]
