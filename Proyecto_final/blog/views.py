@@ -1,14 +1,16 @@
 from multiprocessing import context
 from operator import is_not
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from blog.forms import Articuloform, Autorform, Categoriaform
+from blog.forms import Articuloform, Autorform, Categoriaform, Registrousuario
 from blog.models import Articulo, Categoria, Autor
 from datetime import datetime
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -129,14 +131,19 @@ class MyLogout(LogoutView):
     template_name = "blog/inicio/logout.html"
 
 def register(request):
-    print("*" * 90)
-    if request.method == "POST":
-        pass
+    if request.method == 'POST':
+        form = Registrousuario(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            messages.success(request, f'Usuario {username} registrado')
+            return redirect('feed')
     else:
-    form = UserCreationForm()
-    form = UserCreationForm()
-    return render(request, "blog/inicio/register.html", {"form": form})
+        form = Registrousuario()
 
+    context = {'form': form}
+    return render(request, 'blog/registro.html', context)
+    
 
 def mostrar_inicio(request):
     return render(request, "blog/inicio.html")

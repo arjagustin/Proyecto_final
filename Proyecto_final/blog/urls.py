@@ -17,8 +17,8 @@ from blog.views import (
 
 urlpatterns = [
     path("inicio/", inicio),
-    path("inicio/login.html/", MyLogin.as_view(), name="login"),
-    path("inicio/logout.html/", MyLogout.as_view(), name="logout"),
+    path("inicio/login.html/", MyLogin.as_view(template_name='login.html'), name="login"),
+    path("inicio/logout.html/", MyLogout.as_view(template_name='logout.html'), name="logout"),
     path("inicio/register.html/", register, name="register"),
     path("inicio/formulario-articulo.html/", formulario_articulos),
     path("inicio/formulario-seccion.html/", formulario_categoria),
