@@ -11,7 +11,7 @@ class Autor(models.Model):
     user = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.apodo
+        return self.user
 
 
 class Articulo(models.Model):
@@ -24,11 +24,11 @@ class Articulo(models.Model):
         return self.titulo
 
 
-class Seccion(models.Model):
+class Categoria(models.Model):
     class Meta:
-        verbose_name_plural = "Secciones"
+        verbose_name_plural = "categorías"
 
-    nombre = models.CharField(max_length=30)
+    Categorias = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.nombre
+        return self.Categorias

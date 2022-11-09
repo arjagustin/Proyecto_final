@@ -17,6 +17,6 @@ class Autorform(forms.Form):
     mail = forms.EmailField()
 
 
-class Seccionform(forms.Form):
+class Categoriaform(forms.Form):
     nombre = forms.CharField(max_length=30)
     fecha_de_creacion = forms.DateField()

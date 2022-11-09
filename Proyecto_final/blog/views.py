@@ -3,9 +3,12 @@ from operator import is_not
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from blog.forms import Articuloform, Autorform, Seccionform
-from blog.models import Articulo, Seccion, Autor
+from blog.forms import Articuloform, Autorform, Categoriaform
+from blog.models import Articulo, Categoria, Autor
 from datetime import datetime
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
 
 # Create your views here.
 
@@ -37,19 +40,19 @@ def formulario_articulos(request):
         return render(request, "formulario-articulo.html", context=contexto)
 
 
-def formulario_secciones(request):
+def formulario_categoria(request):
     if request.method == "GET":
 
-        mi_formulario = Seccionform()
+        mi_formulario = Categoriaform()
         contexto = {"formulario": mi_formulario}
         return render(request, "formulario-seccion.html", context=contexto)
 
     if request.method == "POST":
 
-        mi_formulario = Seccionform(request.POST)
+        mi_formulario = Categoriaform(request.POST)
         if mi_formulario.is_valid():
             mi_formulario_completado = mi_formulario.cleaned_data
-            nuevo_articulo = Seccion(
+            nuevo_articulo = Categoria(
                 nombre=mi_formulario_completado["nombre"],
                 fecha_de_creacion=mi_formulario_completado["fecha_de_creacion"],
             )
@@ -97,13 +100,13 @@ def buscar_articulo(request):
         return render(request, "resultado-busqueda-articulo.html", context=contexto)
 
 
-def buscar_seccion(request):
+def buscar_categoria(request):
     if request.method == "GET":
         return render(request, "formulario-busqueda-seccion.html")
 
     if request.method == "POST":
         nombre_a_buscar = request.POST["nombre"]
-        resultados_de_busqueda = Seccion.objects.filter(nombre=nombre_a_buscar)
+        resultados_de_busqueda = Categoria.objects.filter(nombre=nombre_a_buscar)
         contexto = {"resultados": resultados_de_busqueda}
         return render(request, "resultado-busqueda-seccion.html", context=contexto)
 
@@ -117,3 +120,23 @@ def buscar_autor(request):
         resultados_de_busqueda = Autor.objects.filter(nombre=nombre_a_buscar)
         contexto = {"resultados": resultados_de_busqueda}
         return render(request, "resultado-busqueda-autor.html", context=contexto)
+
+
+class MyLogin(LoginView):
+    template_name = "blog/inicio/login.html"
+
+class MyLogout(LogoutView):
+    template_name = "blog/inicio/logout.html"
+
+def register(request):
+    print("*" * 90)
+    if request.method == "POST":
+        pass
+    else:
+    form = UserCreationForm()
+    form = UserCreationForm()
+    return render(request, "blog/inicio/register.html", {"form": form})
+
+
+def mostrar_inicio(request):
+    return render(request, "blog/inicio.html")
