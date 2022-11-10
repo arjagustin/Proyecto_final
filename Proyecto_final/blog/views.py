@@ -1,16 +1,16 @@
+from datetime import datetime
 from multiprocessing import context
 from operator import is_not
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
 
 from blog.forms import Articuloform, Autorform, Categoriaform, Registrousuario
-from blog.models import Articulo, Categoria, Autor
-from datetime import datetime
+from blog.models import Articulo, Autor, Categoria
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView, LogoutView
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -142,8 +142,25 @@ def register(request):
         form = Registrousuario()
 
     context = {'form': form}
-    return render(request, 'blog/registro.html', context)
+    return render(request, 'blog/inicio/register.html', context)
+
+#def register(request):
+#    if request.method == "POST":
+#        
+#        form = UserCreationForm(request.POST)
+#        #form = UserRegisterForm(request.POST)
+#        if form.is_valid():
+#            username = form.cleaned_data['username']
+#            form.save()
+#            return render(request, "inicio/", {"form": "Usuario Creado con éxito"})
+#
+#    else:
+#        form = UserCreationForm()
+#        #form = UserCreationForm()
+#    
+#    return("Esta plantilla está dañada")
     
+
 
 def mostrar_inicio(request):
     return render(request, "blog/inicio.html")
